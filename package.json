@@ -1,0 +1,11 @@
+{
+  "name": "life_simplifier",
+  "version": "1.0.0",
+  "description": "Daily life task management web application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
