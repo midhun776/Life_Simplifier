@@ -61,3 +61,4 @@ router.get("/home", async (req, res) => {
     // Set user details in local storage
     res.render("Home", { user: user });
   });
+  module.exports = router
