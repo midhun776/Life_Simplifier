@@ -27,7 +27,7 @@ var UserModal = mongoose.model("user", userSchema);
 
 //Login Routes for Displaying Login Page
 router.get("/", (req, res) => {
-  res.render("login");
+  res.render("login" ,{ status: "" });
 });
 
 //SignUP Routes for Displaying SignUp Page
@@ -70,11 +70,11 @@ router.post("/login", async (req, res) => {
         email = user.email;
         res.redirect(`/home?email=${user.email}`);
       } else {
-        res.render("LoginPage", { status: "Password is Wrong" });
+        res.render("login", { status: "Password is Wrong" });
       }
     });
   } else {
-    res.render("LoginPage", { status: "UserName is Wrong" });
+    res.render("login", { status: "UserName is Wrong" });
   }
 });
 
@@ -84,6 +84,6 @@ router.get("/home", async (req, res) => {
     console.log(userEmailFromQuery);
     var user = await UserModal.findOne({ email: userEmailFromQuery });
     // Set user details in local storage
-    res.render("Home", { user: user });
+    res.render("home", { user: user });
   });
   module.exports = router
