@@ -16,7 +16,6 @@ var userSchema = mongoose.Schema({
   email: String,
   mobileNo: Number,
   password: String,
-  confirmpassword: String,
 });
 
 // Registering schema to mongoose
@@ -35,6 +34,30 @@ router.get("/", (req, res) => {
 router.get("/signup", (req, res) => {
   res.render("registration");
 });
+
+
+router.post("/signup", async (req, res) => {
+    try {
+      
+      var password = await bcrypt.hash(req.body.password, 10);
+      var user = new UserModal({
+        name: req.body.name,
+        email:  req.body.email,
+        mobileNo: req.body.mobileNo,
+        password: password,
+      });
+  
+      // Save the user and wait for the operation to complete
+      await user.save();
+  
+      // Redirect after the user is successfully saved
+      res.redirect("/");
+    } catch (error) {
+      // Handle any errors that might occur during the process
+      console.error("Error creating user:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 
 
 router.post("/login", async (req, res) => {

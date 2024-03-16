@@ -9,36 +9,36 @@
             <div class="form signup">
                 <div class="form-content">
                     <header>Signup</header>
-                    <form action="#">
+                    <form method="post" action="/signup">
                         
                         <div class="field input-field">
-                            <input type="text" placeholder="FullName" class="input">
+                            <input type="text" placeholder="FullName" class="input" id="name" name="name">
                         </div>
 
                         <div class="field input-field">
-                            <input type="number" placeholder="PhoneNumber" class="input">
+                            <input type="number" placeholder="PhoneNumber" class="input" id="mobileNo" name="mobileNo">
                         </div>
 
                         <div class="field input-field">
-                            <input type="email" placeholder="Email" class="input">
+                            <input type="email" placeholder="Email" class="input" id="email" name="email">
                         </div>
 
                         <div class="field input-field">
-                            <input type="password" placeholder="Create password" class="password">
+                            <input type="password" placeholder="Create password" class="password" id="password" name="password">
                         </div>
 
                         <div class="field input-field">
-                            <input type="password" placeholder="Confirm password" class="password">
+                            <input type="password" placeholder="Confirm password" class="password" id="confirmpassword" name="confirmpassword">
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
 
                         <div class="field button-field">
-                            <button>Signup</button>
+                            <button type="submit">Signup</button>
                         </div>
                     </form>
 
                     <div class="form-link">
-                        <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+                        <span>Already have an account? <a href="/" class="link login-link">Login</a></span>
                     </div>
                 </div>
             </div>
