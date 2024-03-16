@@ -14,5 +14,35 @@ var UserModal = mongoose.model("user", userSchema);
 
 
 router.get("/", (req, res) => {
-  res.render("LoginPage", { status: "ok" });
-});
+    res.render("LoginPage", { status: "ok" });
+  });
+  router.get("/signup", (req, res) => {
+    res.render("Registration");
+  });
+  router.get("/home", async (req, res) => {
+    const userEmailFromQuery = req.query.email;
+    console.log(userEmailFromQuery)
+    var user = await UserModal.findOne({ email: userEmailFromQuery });
+    // Set user details in local storage
+    res.render("Home", { user: user });
+    
+  });
+  
+  router.post("/login", async (req, res) => {
+    console.log(req.body);
+    var user = await UserModal.findOne({ email: req.body.email });
+  
+    if (user) {
+      bcrypt.compare(req.body.password, user.password).then((response) => {
+        if (response) {
+         email=user.email
+         res.redirect(`/home?email=${user.email}`);
+        } else {
+          res.render("LoginPage", { status: "Password is Wrong" });
+        }
+      });
+    } else {
+      res.render("LoginPage", { status: "UserName is Wrong" });
+    }
+  });
+  
