@@ -3,12 +3,12 @@ var app = express();
 var bodyparser = require("body-parser");
 
 app.use(bodyparser.urlencoded({ extended: true }));
-var home = require("./home");
+var main = require("./main");
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
 app.listen("3000", () => {
   console.log("Server Started");
 });
-app.use("/", home);
+app.use("/", main);
 
