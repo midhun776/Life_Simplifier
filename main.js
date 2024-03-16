@@ -28,7 +28,7 @@ var UserModal = mongoose.model("user", userSchema);
 
 //Login Routes for Displaying Login Page
 router.get("/", (req, res) => {
-  res.render("login", { status: "ok" });
+  res.render("login");
 });
 
 //SignUP Routes for Displaying SignUp Page
