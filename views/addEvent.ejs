@@ -11,7 +11,7 @@
             <div class="search">
                 <label for="search">
                     <p>Budget:</p>
-                    <input type="text" id="search" placeholder="3000">
+                    <input type="text" id="search" placeholder="<%=user.budget%>">
                     <div class="user-actions">
                         
                         <a href="/budget">
@@ -41,9 +41,9 @@
         
             <nav>
                 <section>
-                    <a href="/home/"><h3>Home</h3></a>
+                    <a  href="/home?email=<%= user.email %>"><h3>Home</h3></a>
                     <div style="padding-bottom: 20px;"></div>
-                    <a href="/analysis/<%= user._id%>"><h3>Weekly Analysis</h3></a>
+                    <a href="/analysis/<%= user._id%>"><h3> Analysis</h3></a>
                 </section>
                 
                 <!-- <section class="dicover">

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="dashboard">
@@ -11,7 +12,7 @@
             <div class="search">
                 <label for="search">
                     <p>Budget:</p>
-                    <input type="text" id="search" placeholder="3000">
+                    <input type="text" id="search" placeholder="<%=user.budget%>">
                     <div class="user-actions">
                         
                         <a href="/budget">
@@ -42,9 +43,9 @@
         
             <nav>
                 <section>
-                    <a href="/home"><h3>Home</h3></section></a>
+                    <a href="/home?email=<%= user.email%>"><h3>Home</h3></section></a>
                     <div class="link" style="padding-bottom: 20px;"></div>
-                    <a href="/analysis"><h3>Weekly Analysis</h3></a>
+                    <a href="/analysis/<%= user._id%>"><h3>Analysis</h3></a>
                 </section>
                 
                 <!-- <section class="dicover">
@@ -54,6 +55,66 @@
         </header>
         
         <main class="content-wrap">
+			<canvas id="myChart" width="400" height="400"></canvas>
+
+			<script>
+			const events =<%- JSON.stringify(eventArray) %>;
+			console.log(events)
+
+			
+			
+	
+				// Calculate savings or exceed amount for each event
+				const data = events.map(event => {
+					const savings = event.expectedRate - event.actualRate;
+					return {
+						eventName: event.eventName,
+						savings: savings > 0 ? savings : 0,
+						exceed: savings < 0 ? Math.abs(savings) : 0
+					};
+				});
+		
+				// Chart data
+				const labels = data.map(event => event.eventName);
+				const savingsData = data.map(event => event.savings);
+				const exceedData = data.map(event => event.exceed);
+		
+				// Chart configuration
+				const config = {
+					type: 'bar',
+					data: {
+						labels: labels,
+						datasets: [{
+								label: 'Savings',
+								data: savingsData,
+								backgroundColor: 'rgba(75, 192, 192, 0.2)',
+								borderColor: 'rgba(75, 192, 192, 1)',
+								borderWidth: 1
+							},
+							{
+								label: 'Exceed',
+								data: exceedData,
+								backgroundColor: 'rgba(255, 99, 132, 0.2)',
+								borderColor: 'rgba(255, 99, 132, 1)',
+								borderWidth: 1
+							}
+						]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				};
+		
+				// Render chart
+				const ctx = document.getElementById('myChart').getContext('2d');
+				new Chart(ctx, config);
+			</script>
         </main>
     </div>
 </body>

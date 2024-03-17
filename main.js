@@ -55,7 +55,8 @@ router.get('/analysis/:id', async (req,res) => {
   const userId = req.params.id;
   const user = await UserModal.findOne(
     { _id: userId });
-  res.render("analysis",{user: user})
+    var eventDetails = await EventModal.find({ user: userId });
+  res.render("analysis",{user: user,eventArray:eventDetails})
 })
 
 router.post("/signup", async (req, res) => {
@@ -184,13 +185,13 @@ router.get("/home", async (req, res) => {
     const userEmailFromQuery = req.query.email;
     console.log(userEmailFromQuery);
     var user = await UserModal.findOne({ email: userEmailFromQuery });
-    var userId=user._id
+    var userId=user?._id
     console.log(userId)
     var eventDetails = await EventModal.find({ user: userId });
     console.log(eventDetails)
 
     var budget = 0
-    if(user.budget!=null)
+    if(user?.budget!=null)
     {
       budget = user.budget
     }
