@@ -99,7 +99,7 @@ router.post("/signup", async (req, res) => {
  
   
       // Redirect after the user is successfully saved
-      res.redirect("/");
+      res.redirect(`/home?email=${updatedUser.email}`);
     } catch (error) {
       // Handle any errors that might occur during the process
       console.error("Error creating user:", error);
@@ -125,7 +125,7 @@ router.post("/signup", async (req, res) => {
       { new: true } // To return the updated document
     );
       // Redirect after the user is successfully saved
-      res.redirect("/");
+      res.redirect(`/home?email=${updatedUser.email}`);
     } catch (error) {
       // Handle any errors that might occur during the process
       console.error("Error creating user:", error);
@@ -145,7 +145,6 @@ router.post("/signup", async (req, res) => {
         eventName: req.body.eventName,
         eventDescription: req.body.eventDesc,
         expectedRate: req.body.expectedRate,
-        actualRate: 0,
         user:user._id
       });
   

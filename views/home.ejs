@@ -1,326 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
+
 <body>
-    <div class="dashboard">
-        <aside class="search-wrap">
-            <div class="search">
-                <label for="search">
-                    <p>Budget:</p>
-                    <input type="text" id="search" placeholder="<%= budget %>">
-                    <div class="user-actions">
-                        
-                        <a href="/budget">
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="margin-left: 10px;" viewBox="0 0 24 24" id="edit"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg> 
-                        </button></a>
-                    </div>
-                </label>    
-            </div>
-            
-            <div class="user-actions">
-                <a href="/">
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z"/><path d="M11 2h2v10h-2z"/></svg>
-                </button></a>
-            </div>
-        </aside>
-        
-        <header class="menu-wrap">
-            <figure class="user">
-                <div class="user-avatar">
-                    <img src="https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42ebdb92a644e864e032a2ebccaa25b6&auto=format&fit=crop&w=100&q=80" alt="Amanda King">
-                </div>
-                <p style="padding-left: 10px; color: #000000; ">
-                    <%=user.name%>
-                </p>
-            </figure>
-        
-            <nav>
-                <section>
-                    <h3>Home</h3>
-                    <div class="link" style="padding-bottom: 20px;"></div>
-                    <a href="/analysis/<%= user._id%>"><h3>Weekly Analysis</h3></a>
-                </section>
-                
-                <!-- <section class="dicover">
+	<div class="dashboard">
+		<aside class="search-wrap">
+			<div class="search">
+				<label for="search">
+					<div style="display: flex; align-items: center;">
+						<p style="margin-right: 10px;">Budget:</p>
+						<form method="post" action="/budget?id=<%= user._id %>" style="display: flex; align-items: center;">
+							<input  type="text" id="budget" name="budget" placeholder="<%= budget %>" style="margin-right: 10px;">
+							<button type="submit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="margin-left: 10px;" viewBox="0 0 24 24" id="edit">
+									<path fill="none" d="M0 0h24v24H0V0z"></path>
+									<path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+								</svg>
+							</button>
+						</form>
+					</div>
+					
+				</label>
+			</div>
+
+			<div class="user-actions">
+				<a href="/">
+					<button>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<path
+								d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z" />
+							<path d="M11 2h2v10h-2z" />
+						</svg>
+					</button></a>
+			</div>
+		</aside>
+
+		<header class="menu-wrap">
+			<figure class="user">
+				<div class="user-avatar">
+					<img src="https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42ebdb92a644e864e032a2ebccaa25b6&auto=format&fit=crop&w=100&q=80"
+						alt="Amanda King">
+				</div>
+				<p style="padding-left: 10px; color: #000000; ">
+					<%=user.name%>
+				</p>
+			</figure>
+
+			<nav>
+				<section>
+					<h3>Home</h3>
+					<div class="link" style="padding-bottom: 20px;"></div>
+					<a href="/analysis/<%= user._id%>">
+						<h3>Weekly Analysis</h3>
+					</a>
+				</section>
+
+				<!-- <section class="dicover">
                     <h3>Finance</h3>
                 </section> -->
-            </nav>
-        </header>
-        
-        <main class="content-wrap">
-            <header class="content-head">
-                <h1>Daily Events</h1>
-                    
-                <div class="action">
+			</nav>
+		</header>
+
+		<main class="content-wrap">
+			<header class="content-head">
+				<h1>Daily Events</h1>
+
+				<div class="action">
 					<a href="/addEvent/<%= user._id %>">
 						<button>
 							Add Event
 						</button>
 					</a>
-                </div>
-            </header>
-            
-            <div class="content">
-                <section class="info-boxes">
-                    <div class="info-box">
-                        
-                        <div class="box-content">
-                            <span class="big">Food</span>
-                            <div class="amountText"><p>Expected amount</p></div>
-                            <div class="amountText"><p>Spent Amount: <input class="amount" type="number"><button class="btn">Submit</button></p></div>
-                            <!-- <div class="field button-field">
+				</div>
+			</header>
+
+			<div class="content">
+				<section class="info-boxes">
+					<div class="info-box">
+						<% event.forEach(function(event) { %>
+							<div class="box-content">
+								<span class="big">
+									<%= event.eventName %>
+								</span>
+								<p class="small">
+									<%= event.eventDescription %>
+								</p>
+								<div class="amountText">
+									<p>Expected amount: <%= event.expectedRate %>
+									</p>
+								</div>
+								<% if (event.actualRate) { %>
+									<div class="amountText">
+										<p>Spent Amount: <%= event.actualRate %>
+										</p>
+									</div>
+									<% } else { %>
+										<div class="amountText">
+											<p style="display: inline-block;">Spent Amount:
+											<form method="post" action="/spent?id=<%=event._id %>" class="inline-form"
+												style="display: inline;">
+												<input name="spent" id="spent" class="amount" type="number">
+												<button type="submit" class="btn">Submit</button>
+											</form>
+											</p>
+										</div>
+										<% } %>
+											<!-- <div class="amountText"><p>Spent Amount: <input class="amount" type="number"><button class="btn">Submit</button></p></div> -->
+											<!-- <div class="field button-field">
                                 <button>Submit</button>
                             </div> -->
-                        </div>
-                    </div>
-                    </section>
-                    
-            </div>
-        </main>
-    </div>
+							</div>
+							<% }); %>
+					</div>
+				</section>
+
+			</div>
+		</main>
+	</div>
 </body>
 <style>
-* {
-	box-sizing: border-box;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-* {
-	font-family: 'Poppins', sans-serif;
-}
-
-html,
-body {
-	color: #99a0b0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background: #f5f5fa;
-	font-size: 16px;
-	line-height: 120%;
-}
-
-a{
-    color: #0171d3;
-    text-decoration: none;
-}
-
-.dashboard {
-	display: grid;
-	width: 100%;
-	height: 100%;
-	grid-gap: 0;
-    padding: 8px;
-	grid-template-columns: 300px auto;
-	grid-template-rows: 80px auto;
-    grid-template-areas: 'menu search'
-												'menu content';
-}
-
-.search-wrap {
-	grid-area: search;
-	background: #ffffff;
-	border-bottom: 1px solid #ede8f0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 3em;
-    color: #000000;
-
-    p {
-        font-size: 20px;
-    }
-	
-	.search {
-		height: 40px;
-        display: flex;
-        width: auto;
-		
-		label {
-			display: flex;
-			align-items: center;
-			height: 100%;
-			
-			svg {
-				display: block;
-				
-				path,
-				circle {
-					fill: lighten(#99a0b0, 10%);
-					transition: fill .15s ease;
-				}
-			}
-			
-			input {
-				display: block;
-				padding-left: 1em;
-				height: 100%;
-                font-size: 20px;
-				margin: 0;
-				border: 0;
-                width: 25%;
-				
-				&:focus {
-					background: #f5f5fa;
-				}
-			}
-			
-			&:hover {
-				svg {
-					path,
-					circle {
-						fill: lighten(#1b253d, 10%);
-					}
-				}
-			}
-		}
+	* {
+		box-sizing: border-box;
 	}
-	
-	.user-actions {
-		button {
-			border: 0;
-			background: none;
-			width: 32px;
-			height: 32px;
-			margin: 0;
-			padding: 0;
-			margin-left: 0.5em;
-			
-			svg {
-				position: relative;
-				top: 2px;
-				
-				path,
-				circle {
-					fill: lighten(#99a0b0, 10%);
-					transition: fill .15s ease;
-				}
-			}
-			
-			&:hover {
-				svg {
-					path,
-					circle {
-						fill: lighten(#1b253d, 10%);
-					}
-				}
-			}
-		}
-	}
-}
 
-.menu-wrap {
-	grid-area: menu;
-	padding-bottom: 3em;
-	overflow: auto;
-	background: #ffffff;
-	border-right: 1px solid #ede8f0;
-	
-	.user {
-		height: 80px;
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+	* {
+		font-family: 'Poppins', sans-serif;
+	}
+
+	html,
+	body {
+		color: #99a0b0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: #f5f5fa;
+		font-size: 16px;
+		line-height: 120%;
+	}
+
+	a {
+		color: #0171d3;
+		text-decoration: none;
+	}
+
+	.dashboard {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		grid-gap: 0;
+		padding: 8px;
+		grid-template-columns: 300px auto;
+		grid-template-rows: 80px auto;
+		grid-template-areas: 'menu search'
+			'menu content';
+	}
+
+	.search-wrap {
+		grid-area: search;
+		background: #ffffff;
+		border-bottom: 1px solid #ede8f0;
 		display: flex;
 		align-items: center;
-		justify-content: flex-start;
-		margin: 0;
+		justify-content: space-between;
 		padding: 0 3em;
-		
-		.user-avatar {
-			width: 40px;
+		color: #000000;
+
+		p {
+			font-size: 20px;
+		}
+
+		.search {
 			height: 40px;
-			border-radius: 50%;
-			overflow: hidden;
-			
-			img {
-				display: block;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-		}
-		
-		figcaption {
-			margin: 0;
-			padding: 0 0 0 1em;
-			color: #1b253d;
-			font-weight: 700;
-			font-size: 0.875em;
-			line-height: 100%;
-		}
-	}
-	
-	nav {
-		display: block;
-		padding: 0 3em;
-		
-		section {
-			display: block;
-			padding: 3em 0 0;
-		}
-		
-		h3 {
-			margin: 0;
-			font-size: .875em;
-			text-transform: uppercase;
-			color: #4b84fe;
-			font-weight: 600;
-		}
-		
-		ul {
-			display: block;
-			padding: 0;
-			margin: 0;
-		}
-		
-		li {
-			display: block;
-			padding: 0;
-			margin: 1em 0 0;
-			
-			a {
+			display: flex;
+			width: auto;
+
+			label {
 				display: flex;
 				align-items: center;
-				justify-content: flex-start;
-				color: #99a0b0;
-				text-decoration: none;
-				font-weight: 600;
-				font-size: .875em;
-				transition: color .15s ease;
-				
+				height: 100%;
+
 				svg {
 					display: block;
-					margin-right: 1em;
-					
+
 					path,
 					circle {
 						fill: lighten(#99a0b0, 10%);
 						transition: fill .15s ease;
 					}
 				}
-				
+
+				input {
+					display: block;
+					padding-left: 1em;
+					height: 100%;
+					font-size: 20px;
+					margin: 0;
+					border: 0;
+					width: 25%;
+
+					&:focus {
+						background: #f5f5fa;
+					}
+				}
+
 				&:hover {
-					color: #1b253d;
-					
 					svg {
+
 						path,
-						circle  {
+						circle {
 							fill: lighten(#1b253d, 10%);
 						}
 					}
 				}
-				
-				&.active {
-					color: #4b84fe;
-					
+			}
+		}
+
+		.user-actions {
+			button {
+				border: 0;
+				background: none;
+				width: 32px;
+				height: 32px;
+				margin: 0;
+				padding: 0;
+				margin-left: 0.5em;
+
+				svg {
+					position: relative;
+					top: 2px;
+
+					path,
+					circle {
+						fill: lighten(#99a0b0, 10%);
+						transition: fill .15s ease;
+					}
+				}
+
+				&:hover {
 					svg {
+
 						path,
-						circle  {
+						circle {
+							fill: lighten(#1b253d, 10%);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.menu-wrap {
+		grid-area: menu;
+		padding-bottom: 3em;
+		overflow: auto;
+		background: #ffffff;
+		border-right: 1px solid #ede8f0;
+
+		.user {
+			height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			margin: 0;
+			padding: 0 3em;
+
+			.user-avatar {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				overflow: hidden;
+
+				img {
+					display: block;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			figcaption {
+				margin: 0;
+				padding: 0 0 0 1em;
+				color: #1b253d;
+				font-weight: 700;
+				font-size: 0.875em;
+				line-height: 100%;
+			}
+		}
+
+		nav {
+			display: block;
+			padding: 0 3em;
+
+			section {
+				display: block;
+				padding: 3em 0 0;
+			}
+
+			h3 {
+				margin: 0;
+				font-size: .875em;
+				text-transform: uppercase;
+				color: #4b84fe;
+				font-weight: 600;
+			}
+
+			ul {
+				display: block;
+				padding: 0;
+				margin: 0;
+			}
+
+			li {
+				display: block;
+				padding: 0;
+				margin: 1em 0 0;
+
+				a {
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					color: #99a0b0;
+					text-decoration: none;
+					font-weight: 600;
+					font-size: .875em;
+					transition: color .15s ease;
+
+					svg {
+						display: block;
+						margin-right: 1em;
+
+						path,
+						circle {
+							fill: lighten(#99a0b0, 10%);
+							transition: fill .15s ease;
+						}
+					}
+
+					&:hover {
+						color: #1b253d;
+
+						svg {
+
+							path,
+							circle {
+								fill: lighten(#1b253d, 10%);
+							}
+						}
+					}
+
+					&.active {
+						color: #4b84fe;
+
+						svg {
+
+							path,
+							circle {
+								fill: #4b84fe;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.field button {
+		height: 100%;
+		width: 100%;
+		border: none;
+		color: #ffffff;
+		padding: 8px 0px;
+		font-size: 16px;
+		font-weight: 400;
+		border-radius: 6px;
+		background: #4b84fe;
+	}
+
+	.btn {
+		height: 100%;
+		width: auto;
+		padding: 8px 20px;
+		border: none;
+		color: #ffffff;
+		font-size: 16px;
+		font-weight: 400;
+		border-radius: 6px;
+		background: #4b84fe;
+	}
+
+
+	.field input {
+		outline: none;
+		padding: 0 15px;
+		border: 1px solid#CACACA;
+	}
+
+	.content-wrap {
+		grid-area: content;
+		padding: 3em;
+		overflow: auto;
+
+		.content-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			h1 {
+				font-size: 1.375em;
+				line-height: 100%;
+				color: #1b253d;
+				font-weight: 500;
+				margin: 0;
+				padding: 0;
+			}
+
+			.action {
+				button {
+					border: 0;
+					background: #4b84fe;
+					color: #ffffff;
+					width: auto;
+					height: 2.5em;
+					padding: 0 2.25em;
+					border-radius: 3.5em;
+					font-size: 1em;
+					text-transform: uppercase;
+					font-weight: 600;
+					transition: background-color .15s ease;
+
+					&:hover {
+						background-color: darken(#4b84fe, 10%);
+
+						&:active {
+							background-color: darken(#4b84fe, 20%);
+							transition: none;
+						}
+					}
+				}
+			}
+		}
+
+		.amount {
+			width: 40%;
+			color: #000000;
+			display: inline;
+			margin: 0 5px;
+			font-size: 20px;
+		}
+
+		.amountText {
+			color: #000000;
+			font-size: 20px;
+		}
+
+		.info-boxes {
+			padding: 3em 0 2em;
+			display: inline;
+
+			.info-box {
+				margin: 20px 0;
+				background: #ffffff;
+				height: auto;
+				width: 100%;
+				align-items: center;
+				justify-content: flex-start;
+				padding: 0 3em;
+				border: 1px solid #ede8f0;
+				border-radius: 5px;
+
+				.box-icon {
+					svg {
+						width: 48px;
+						height: 48px;
+
+						path,
+						circle {
+							fill: #99a0b0;
+						}
+					}
+				}
+
+				.box-content {
+					padding: 40px 0px;
+					white-space: nowrap;
+					width: 100%;
+
+					.big {
+						font-size: 2em;
+						line-height: 150%;
+						color: #1b253d;
+						display: inline;
+
+						p {
+							color: #fa5b67;
+						}
+					}
+				}
+
+				&.active {
+					svg {
+
+						circle,
+						path {
 							fill: #4b84fe;
 						}
 					}
@@ -328,151 +517,6 @@ a{
 			}
 		}
 	}
-}
-
-.field button{
-    height: 100%;
-    width: 100%;
-    border: none;
-    color: #ffffff;
-	padding: 8px 0px;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 6px;
-    background: #4b84fe;
-}
-
-.btn {
-    height: 100%;
-    width: auto;
-    padding: 8px 20px;
-    border: none;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 6px;
-    background: #4b84fe;
-}
-
-
-        .field input{
-            outline: none;
-            padding: 0 15px;
-            border: 1px solid#CACACA;
-        }
-
-.content-wrap {
-	grid-area: content;
-	padding: 3em;
-	overflow: auto;
-	
-	.content-head	{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		
-		h1 {
-			font-size: 1.375em;
-			line-height: 100%;
-			color: #1b253d;
-			font-weight: 500;
-			margin: 0;
-			padding: 0;
-		}
-		
-		.action {
-			button {
-				border: 0;
-				background: #4b84fe;
-				color: #ffffff;
-				width: auto;
-				height: 2.5em;
-				padding: 0 2.25em;
-				border-radius: 3.5em;
-				font-size: 1em;
-				text-transform: uppercase;
-				font-weight: 600;
-				transition: background-color .15s ease;
-				
-				&:hover {
-					background-color: darken(#4b84fe, 10%);
-					
-					&:active {
-						background-color: darken(#4b84fe, 20%);
-						transition: none;
-					}
-				}
-			}
-		}
-	}
-
-    .amount {
-        width: 40%;
-        color: #000000;
-        display: inline;
-        margin: 0 5px;
-        font-size: 20px;
-    }
-
-    .amountText {
-        color: #000000;
-        font-size: 20px;
-    }
-
-	.info-boxes {
-		padding: 3em 0 2em;
-        display: inline;
-		
-		.info-box {
-            margin: 20px 0;
-			background: #ffffff;
-			height: auto;
-            width: 100%;
-			align-items: center;
-			justify-content: flex-start;
-			padding: 0 3em;
-			border: 1px solid #ede8f0;
-			border-radius: 5px;
-			
-			.box-icon {
-				svg {
-					width: 48px;
-					height: 48px;
-					
-					path,
-					circle {
-						fill: #99a0b0;
-					}
-				}
-			}
-			
-			.box-content {			
-				padding: 40px 0px;
-				white-space: nowrap;
-                width: 100%;
-				
-				.big {
-					font-size: 2em;
-					line-height: 150%;
-					color: #1b253d;
-                    display: inline;
-
-                    p{
-                        color: #fa5b67;
-                    }
-				}
-			}
-			
-			&.active {
-				svg {
-					circle,
-					path {
-						fill: #4b84fe;
-					}
-				}
-			}
-		}
-	}
-}
 </style>
+
 </html>
