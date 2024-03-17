@@ -44,6 +44,10 @@ router.get("/signup", (req, res) => {
 });
 
 
+router.get("/addEvent", (req, res) => {
+  res.render("addEvent");
+});
+
 router.post("/signup", async (req, res) => {
     try {
       
