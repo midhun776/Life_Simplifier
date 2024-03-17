@@ -44,9 +44,19 @@ router.get("/signup", (req, res) => {
 });
 
 
-router.get("/addEvent", (req, res) => {
-  res.render("addEvent");
+router.get("/addEvent/:id", async (req, res) => {
+  const userId = req.params.id;
+  const user = await UserModal.findOne(
+    { _id: userId });
+  res.render("addEvent", {user: user});
 });
+
+router.get('/analysis/:id', async (req,res) => {
+  const userId = req.params.id;
+  const user = await UserModal.findOne(
+    { _id: userId });
+  res.render("analysis",{user: user})
+})
 
 router.post("/signup", async (req, res) => {
     try {
@@ -123,24 +133,27 @@ router.post("/signup", async (req, res) => {
     }
   });
 
-  router.post("/events", async (req, res) => {
+  router.post("/events/:id", async (req, res) => {
     try {
-      console.log(req)
-      const userIdFromQuery = req.query.id;
+      console.log(req.params.id)
+      
+      const userId = req.params.id;
+      const user = await UserModal.findOne(
+        { _id: userId });
      
       var event = new EventModal({
         eventName: req.body.eventName,
-        eventDescription: req.body.eventDescription,
+        eventDescription: req.body.eventDesc,
         expectedRate: req.body.expectedRate,
-        actualRate: req.body.actualRate,
-        user:userIdFromQuery
+        actualRate: 0,
+        user:user._id
       });
   
       // Save the user and wait for the operation to complete
       await event.save();
   
       // Redirect after the user is successfully saved
-      res.redirect("/");
+      res.redirect(`/home?email=${user.email}`);
     } catch (error) {
       // Handle any errors that might occur during the process
       console.error("Error creating user:", error);
