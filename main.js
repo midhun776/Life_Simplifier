@@ -189,7 +189,13 @@ router.get("/home", async (req, res) => {
     console.log(userId)
     var eventDetails = await EventModal.find({ user: userId });
     console.log(eventDetails)
+
+    var budget = 0
+    if(user.budget!=null)
+    {
+      budget = user.budget
+    }
     // Set user details in local storage
-    res.render("home", { user: user,eventDetails });
+    res.render("home", { user: user,event: eventDetails, budget: budget });
   });
   module.exports = router
