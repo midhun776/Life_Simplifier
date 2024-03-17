@@ -31,7 +31,7 @@
                     <img src="https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=42ebdb92a644e864e032a2ebccaa25b6&auto=format&fit=crop&w=100&q=80" alt="Amanda King">
                 </div>
                 <p style="padding-left: 10px; color: #000000; ">
-                    <%=user.name%>
+                    Midhun Murali
                 </p>
             </figure>
         
@@ -51,27 +51,35 @@
         <main class="content-wrap">
             <header class="content-head">
                 <h1>Daily Events</h1>
-                    
-                <div class="action">
-                    <button>
-                        Add Event
-                    </button>
-                </div>
             </header>
             
             <div class="content">
                 <section class="info-boxes">
-                    <div class="info-box">
-                        
-                        <div class="box-content">
-                            <span class="big">Food</span>
-                            <div class="amount" style="padding: 5px 0px;">Expected amount </div>
-                            <div class="amount" style="padding: 5px 0px;">Spent Amount: <input class="amount" type="number"></div>
-                            <div class="field button-field">
-                                <button>Submit</button>
+                    <section class="container forms">
+                        <div class="form signup">
+                            <div class="form-content">
+                                <header>Add Event</header>
+                                <form action="#">
+                                    
+                                    <div class="field input-field">
+                                        <input type="text" placeholder="Event name" name="eventName" class="input">
+                                    </div>
+            
+                                    <div class="field input-field">
+                                        <input type="text" placeholder="Event description" name="eventDesc" class="input">
+                                    </div>
+            
+                                    <div class="field input-field">
+                                        <input type="number" placeholder="Expected amount" name="expected" class="input">
+                                    </div>
+            
+                                    <div class="field button-field">
+                                        <button>Add</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
+                    </section>
                     
             </div>
         </main>
@@ -307,26 +315,6 @@ body {
 	}
 }
 
-.field button{
-    height: 100%;
-    width: 100%;
-    border: none;
-    margin-top: 10px;
-    color: #ffffff;
-	padding: 8px 0px;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 6px;
-    background: #4b84fe;
-}
-
-
-        .field input{
-            outline: none;
-            padding: 0 15px;
-            border: 1px solid#CACACA;
-        }
-
 .content-wrap {
 	grid-area: content;
 	padding: 3em;
@@ -352,7 +340,7 @@ body {
 				background: #4b84fe;
 				color: #ffffff;
 				width: auto;
-				height: 2.5em;
+				height: 3.5em;
 				padding: 0 2.25em;
 				border-radius: 3.5em;
 				font-size: 1em;
@@ -384,7 +372,7 @@ body {
 		
 		.info-box {
 			background: #ffffff;
-			height: auto;
+			height: 160px;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
@@ -406,7 +394,7 @@ body {
 			}
 			
 			.box-content {			
-				padding: 50px 0px;
+				padding-left: 1.25em;
 				white-space: nowrap;
 				
 				.big {
@@ -503,19 +491,101 @@ body {
 					font-size: .875em;
 					line-height: 100%;
 				}
-			}
 			
-			.box-actions {
-				margin-top: 1.25em;
-				padding-top: 1.25em;
-				width: 100%;
-				border-top: 1px solid #ede8f0;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
 			}
 		}
 	}
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        
+        .form{
+            position: absolute;
+            max-width: 430px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 6px;
+            background: #FFF;
+        }
+        .form.signup{
+            opacity: 1;
+            pointer-events: none;
+        }
+        .forms.show-signup .form.signup{
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .forms.show-signup .form.login{
+            opacity: 0;
+            pointer-events: none;
+        }
+        .forms.signup .form.login{
+            opacity: 0;
+            pointer-events: none;
+        }
+        form{
+            margin-top: 30px;
+        }
+        .form .field{
+            position: relative;
+            height: 50px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+        .field input,
+        .field button{
+            height: 100%;
+            width: 100%;
+            border: none;
+            font-size: 16px;
+            font-weight: 400;
+            border-radius: 6px;
+        }
+        .field input{
+            outline: none;
+            padding: 0 15px;
+            border: 1px solid#CACACA;
+        }
+        .field input:focus{
+            border-bottom-width: 2px;
+        }
+        .eye-icon{
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #8b8b8b;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .field button{
+            color: #fff;
+            background-color: #4b84fe;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .field button:hover{
+            background-color: #016dcb;
+        }
+        .form-link{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .form-link span,
+        .form-link a{
+            font-size: 14px;
+            font-weight: 400;
+            color: #232836;
+        }
+        .form a{
+            color: #0171d3;
+            text-decoration: none;
+        }
+        .form-content a:hover{
+            text-decoration: underline;
+        }
 </style>
 </html>
